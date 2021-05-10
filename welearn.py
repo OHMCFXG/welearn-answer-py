@@ -1,5 +1,6 @@
 import json
 import os.path
+import sys
 import time
 import zipfile
 import requests
@@ -191,6 +192,10 @@ def login():
         'pwd': passwd
     }
     resp = requests.get(url, data=data).json()
+    if resp["status"] == "-1":
+        print(resp["msg"])
+        sys.exit(-1)
+    print("登录成功")
     token = resp["openid"]
     return token
 
